@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dele.to - Secure Credential Sharing</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <header>
+      <div class="brand" aria-label="Dele.to">
+        <img class="brand-icon" src="main-logo.png" alt="">
+        <img class="brand-text" src="logo-text.png" alt="">
+      </div>
+      <p>Share secrets that disappear</p>
+    </header>
+
+    <label for="share-text">Secret content</label>
+    <textarea id="share-text" rows="6" maxlength="140000" placeholder="Select text on the page or paste it here"></textarea>
+    <p id="selection-hint" class="hint"></p>
+    <div class="share-options">
+      <div>
+        <label for="expiration">Expiration</label>
+        <div class="custom-select" data-dropdown="expiration">
+          <input id="expiration" type="hidden" value="3600">
+          <button class="dropdown-trigger" type="button" data-dropdown-trigger aria-haspopup="listbox" aria-expanded="false">
+            <span data-dropdown-label>1 hour</span><span class="dropdown-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="dropdown-menu" role="listbox" hidden>
+            <button class="dropdown-option" type="button" role="option" data-value="900" aria-selected="false"><span class="option-label">15 minutes</span></button>
+            <button class="dropdown-option" type="button" role="option" data-value="3600" aria-selected="true"><span class="option-label">1 hour</span></button>
+            <button class="dropdown-option" type="button" role="option" data-value="86400" aria-selected="false"><span class="option-label">24 hours <span class="tier-badge key">API</span></span></button>
+            <button class="dropdown-option" type="button" role="option" data-value="604800" aria-selected="false"><span class="option-label">7 days <span class="tier-badge pro">PRO</span></span></button>
+            <button class="dropdown-option" type="button" role="option" data-value="2592000" aria-selected="false"><span class="option-label">30 days <span class="tier-badge pro">PRO</span></span></button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label for="max-views">Maximum views</label>
+        <div class="custom-select" data-dropdown="max-views">
+          <input id="max-views" type="hidden" value="1">
+          <button class="dropdown-trigger" type="button" data-dropdown-trigger aria-haspopup="listbox" aria-expanded="false">
+            <span data-dropdown-label>1 · burn after reading</span><span class="dropdown-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="dropdown-menu" role="listbox" hidden>
+            <button class="dropdown-option" type="button" role="option" data-value="1" aria-selected="true"><span class="option-label">1 · burn after reading</span></button>
+            <button class="dropdown-option" type="button" role="option" data-value="3" aria-selected="false"><span class="option-label">3 views <span class="tier-badge key">API</span></span></button>
+            <button class="dropdown-option" type="button" role="option" data-value="5" aria-selected="false"><span class="option-label">5 views <span class="tier-badge key">API</span></span></button>
+            <button class="dropdown-option" type="button" role="option" data-value="10" aria-selected="false"><span class="option-label">10 views <span class="tier-badge key">API</span></span></button>
+            <button class="dropdown-option" type="button" role="option" data-value="25" aria-selected="false"><span class="option-label">25 views <span class="tier-badge pro">PRO</span></span></button>
+            <button class="dropdown-option" type="button" role="option" data-value="50" aria-selected="false"><span class="option-label">50 views <span class="tier-badge pro">PRO</span></span></button>
+            <button class="dropdown-option" type="button" role="option" data-value="100" aria-selected="false"><span class="option-label">100 views <span class="tier-badge pro">PRO</span></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="limits-hint">Anonymous: 1h / 1 view · Free: 24h / 10 views · Pro: 30d / 100 views</p>
+    <button id="create" class="primary" type="button">Create encrypted share</button>
+    <p class="shortcut-prompt">Or select text and press <kbd id="shortcut-inline">Ctrl+Shift+S</kbd></p>
+
+    <section id="status" class="status hidden" aria-live="polite">
+      <strong id="status-title"></strong>
+      <span id="status-message"></span>
+      <div id="link-row" class="link-row hidden">
+        <input id="share-link" type="text" readonly aria-label="Created share link">
+        <button id="copy" type="button">Copy</button>
+      </div>
+    </section>
+
+    <details>
+      <summary>Settings</summary>
+      <div class="settings">
+        <label for="server">Dele.to endpoint</label>
+        <input id="server" type="url" spellcheck="false" placeholder="https://dele.to">
+        <p class="hint">Custom servers require one-time site access.</p>
+        <label for="api-key">API key <span>Optional</span></label>
+        <input id="api-key" type="password" autocomplete="off" spellcheck="false" placeholder="dlt_v1_…">
+        <p class="hint">Uses your account quota. Stored only in this extension on this device. <a href="https://dele.to/developers" target="_blank" rel="noreferrer">Get an API key</a>.</p>
+        <button id="save-server" class="secondary" type="button">Save settings</button>
+        <p id="server-status" class="hint" aria-live="polite"></p>
+        <div class="shortcut">
+          <span>Keyboard shortcut</span>
+          <kbd id="shortcut">Not assigned</kbd>
+          <button id="change-shortcut" class="text-button" type="button">Change</button>
+        </div>
+      </div>
+    </details>
+
+    <footer>Plaintext and encryption keys never leave this browser.</footer>
+  </main>
+  <script src="core.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

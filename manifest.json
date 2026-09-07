@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "Dele.to - Secure Credential Sharing",
+  "version": "1.1.0",
+  "minimum_chrome_version": "109",
+  "description": "Encrypt selected text locally, create a Dele.to share, and copy its link.",
+  "permissions": [
+    "activeTab",
+    "clipboardWrite",
+    "contextMenus",
+    "offscreen",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://dele.to/*"
+  ],
+  "optional_host_permissions": [
+    "http://localhost/*",
+    "http://127.0.0.1/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icon-128.png",
+    "48": "icon-128.png",
+    "128": "icon-128.png"
+  },
+  "action": {
+    "default_icon": "icon-128.png",
+    "default_popup": "popup.html",
+    "default_title": "Create Dele.to share"
+  },
+  "commands": {
+    "share-selection": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "Create a share from selected text"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
